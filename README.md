@@ -1,10 +1,12 @@
 # Buildx packaging
 
+[![GitHub release](https://img.shields.io/github/release/crazy-max/buildx-packaging.svg?style=flat-square)](https://github.com/crazy-max/buildx-packaging/releases/latest)
 [![Build Status](https://img.shields.io/github/workflow/status/crazy-max/buildx-packaging/build?label=build&logo=github)](https://github.com/crazy-max/buildx-packaging/actions?query=workflow%3Abuild)
+[![Release Status](https://img.shields.io/github/workflow/status/crazy-max/buildx-packaging/release?label=release&logo=github)](https://github.com/crazy-max/buildx-packaging/actions?query=workflow%3Arelease)
 [![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/buildx-packaging.svg?logo=docker)](https://hub.docker.com/r/crazymax/buildx-packaging/)
 
 This repository creates packages (apk, deb, rpm, static) for [buildx](https://github.com/docker/buildx)
-that will be pushed on [`docker/buildx-pkg` Docker Hub repository](https://hub.docker.com/r/docker/buildx-pkg). 
+that are pushed on [`docker/buildx-pkg` Docker Hub repository](https://hub.docker.com/r/docker/buildx-pkg). 
 
 ## Usage
 
@@ -21,8 +23,8 @@ $ PKG_TYPES=deb PKG_DEB_RELEASES=debian11 docker buildx bake pkg
 # create packages for windows/amd64 platform and output to ./bin folder
 $ docker buildx bake --set *.platform=windows/amd64 --set *.output=./bin pkg
 
-# create packages for all supported platforms and push to crazymax/buildx-pkg:latest
-$ docker buildx bake --set *.output=type=image,push=true --set *.tags=crazymax/buildx-pkg:latest pkg-cross
+# create packages for all supported platforms and push to crazymax/buildx-packaging:v0.8.1
+$ docker buildx bake --set *.output=type=image,push=true --set *.tags=crazymax/buildx-packaging:v0.8.1 pkg-cross
 ```
 
 ## Extract packages
@@ -31,7 +33,7 @@ You can use a tool like [Undock](https://github.com/crazy-max/undock) to extract
 all packages with:
 
 ```shell
-$ undock --wrap --rm-dist --all crazymax/buildx-pkg:latest ./bin
+$ undock --wrap --rm-dist --all crazymax/buildx-packaging:v0.8.1 ./bin
 $ tree ./bin
 ./dist/
 ├── darwin
