@@ -1,11 +1,14 @@
 # Buildx packaging
 
+[![Build Status](https://img.shields.io/github/workflow/status/crazy-max/buildx-packaging/build?label=build&logo=github)](https://github.com/crazy-max/buildx-packaging/actions?query=workflow%3Abuild)
+[![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/buildx-packaging.svg?logo=docker)](https://hub.docker.com/r/crazymax/buildx-packaging/)
+
 This repository creates packages (apk, deb, rpm, static) for [buildx](https://github.com/docker/buildx)
 that will be pushed on [`docker/buildx-pkg` Docker Hub repository](https://hub.docker.com/r/docker/buildx-pkg). 
 
 ## Usage
 
-```console
+```shell
 # create packages for the current platform
 $ docker buildx bake pkg
 
@@ -27,7 +30,7 @@ $ docker buildx bake --set *.output=type=image,push=true --set *.tags=crazymax/b
 You can use a tool like [Undock](https://github.com/crazy-max/undock) to extract
 all packages with:
 
-```console
+```shell
 $ undock --wrap --rm-dist --all crazymax/buildx-pkg:latest ./bin
 $ tree ./bin
 ./dist/
