@@ -1,15 +1,6 @@
 name: build
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Buildx version (e.g. v0.8.1)'
-        required: true
-      dry-run:
-        description: 'Dry run'
-        required: true
-        type: boolean
   push:
     branches:
       - 'main'
@@ -25,11 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Set Buildx version
-        if: github.event.inputs.version != ''
-        run: |
-          echo "BUILDX_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
-      -
         name: Dump context
         uses: crazy-max/ghaction-dump-context@v1
       -
@@ -43,13 +29,11 @@ jobs:
           images: |
             ${{ env.REPO_SLUG }}
           tags: |
-            type=raw,value=${{ env.BUILDX_VERSION }},enable=${{ github.event.inputs.version != '' }}
-            type=raw,value=${{ env.BUILDX_VERSION }}-${{ env.GITHUB_RUN_NUMBER }},enable=${{ github.event.inputs.version != '' }}
-            type=ref,event=branch,enable=${{ github.event.inputs.version == '' }}
-            type=ref,event=pr,enable=${{ github.event.inputs.version == '' }}
+            type=ref,event=branch
+            type=ref,event=pr
           labels: |
-            github.buildx-packaging.run-id=${{ env.GITHUB_RUN_ID }}
-            github.buildx-packaging.run-number=${{ env.GITHUB_RUN_NUMBER }}
+            github.buildx-packaging.run_id=${{ github.run_id }}
+            github.buildx-packaging.run_number=${{ github.run_number }}
           bake-target: meta-helper
       -
         name: Set up QEMU
@@ -65,7 +49,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push image
+        name: Build
         uses: docker/bake-action@v1
         with:
           files: |
@@ -73,17 +57,4 @@ jobs:
             ${{ steps.meta.outputs.bake-file }}
           targets: pkg-cross
           set: |
-            *.output=type=image,push=${{ github.event_name != 'pull_request' && github.event.inputs.dry-run != 'true' }}
-      -
-        name: Create Release
-        uses: softprops/action-gh-release@9729932bfb75c05ad1f6e3a729294e05abaa7001
-        if: github.event.inputs.version != '' && github.event.inputs.dry-run != 'true'
-        with:
-          name: ${{ env.BUILDX_VERSION }}-${{ env.GITHUB_RUN_NUMBER }}
-          tag_name: ${{ env.BUILDX_VERSION }}-${{ env.GITHUB_RUN_NUMBER }}
-          target_commitish: ${{ github.sha }}
-          body: |
-            * Tags pushed: [`${{ env.REPO_SLUG }}:${{ env.BUILDX_VERSION }}`, `${{ env.REPO_SLUG }}:${{ env.BUILDX_VERSION }}-${{ env.GITHUB_RUN_NUMBER }}`](https://hub.docker.com/r/${{ env.REPO_SLUG }})
-            * Buildx release: https://github.com/docker/buildx/releases/tag/${{ env.BUILDX_VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            *.output=type=image,push=${{ github.event_name != 'pull_request' }}
