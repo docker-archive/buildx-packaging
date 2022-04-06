@@ -34,7 +34,10 @@ workdir=$(mktemp -d -t buildx-pkg.XXXXXXXXXX)
 trap 'set -x ; rm -rf -- "$workdir"' EXIT
 mkdir -p "$workdir/docker-buildx-plugin"
 
-PKG_OUTPUT="${OUTPUT}/$(xx-info os)/$(xx-info arch)/$(xx-info variant)"
+PKG_OUTPUT="${OUTPUT}/$(xx-info os)/$(xx-info arch)"
+if [ -n "$(xx-info variant)" ]; then
+  PKG_OUTPUT="${PKG_OUTPUT}/$(xx-info variant)"
+fi
 mkdir -p "${PKG_OUTPUT}"
 
 os=$(xx-info os)
@@ -57,7 +60,7 @@ for pkgtype in ${PKG_TYPES//,/ }; do
       (
         set -x
         cp /usr/bin/buildx "$workdir/docker-buildx-plugin/docker-buildx"
-        tar -czf "${PKG_OUTPUT}docker-buildx-plugin_${BUILDX_VERSION#v}.tgz" -C "$workdir" docker-buildx-plugin
+        tar -czf "${PKG_OUTPUT}/docker-buildx-plugin_${BUILDX_VERSION#v}.tgz" -C "$workdir" docker-buildx-plugin
       )
     fi
     continue
