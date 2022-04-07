@@ -8,12 +8,25 @@ on:
   pull_request:
 
 env:
-  #REPO_SLUG: "docker/buildx-pkg" # FIXME: uncomment when moved to docker org and don't forget to update secrets
-  REPO_SLUG: "crazymax/buildx-packaging"
+  REPO_SLUG: "dockereng/buildx-pkg"
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Run
+        uses: docker/bake-action@v1
+        with:
+          targets: validate
+
   build:
     runs-on: ubuntu-latest
+    needs:
+      - validate
     steps:
       -
         name: Dump context

@@ -1,3 +1,17 @@
+// Copyright 2022 buildx-packaging authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 variable "OUTPUT" {
   default = "./bin"
 }
@@ -48,11 +62,27 @@ variable "PKG_PACKAGER" {
 
 // Special target: https://github.com/docker/metadata-action#bake-definition
 target "meta-helper" {
-  tags = ["docker/buildx-pkg:local"]
+  tags = ["dockereng/buildx-pkg:local"]
 }
 
 group "default" {
   targets = ["pkg"]
+}
+
+group "validate" {
+  targets = ["license-validate"]
+}
+
+target "license-validate" {
+  dockerfile = "./hack/license.Dockerfile"
+  target = "validate"
+  output = ["type=cacheonly"]
+}
+
+target "license-update" {
+  dockerfile = "./hack/license.Dockerfile"
+  target = "update"
+  output = ["."]
 }
 
 # Useful commands for this target
@@ -75,7 +105,7 @@ target "pkg" {
 }
 
 # Useful commands for this target
-# docker buildx bake pkg-cross --set *.output=type=image,push=true --set *.tags=crazymax/buildx-pkg:latest
+# docker buildx bake pkg-cross --set *.output=type=image,push=true --set *.tags=dockereng/buildx-pkg:latest
 target "pkg-cross" {
   inherits = ["pkg"]
   platforms = [
