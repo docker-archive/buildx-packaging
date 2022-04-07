@@ -5,6 +5,8 @@
 [![Release Status](https://img.shields.io/github/workflow/status/crazy-max/buildx-packaging/release?label=release&logo=github)](https://github.com/crazy-max/buildx-packaging/actions?query=workflow%3Arelease)
 [![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/buildx-packaging.svg?logo=docker)](https://hub.docker.com/r/crazymax/buildx-packaging/)
 
+## About
+
 This repository creates packages (apk, deb, rpm, static) for [buildx](https://github.com/docker/buildx)
 that are pushed on [`docker/buildx-pkg` Docker Hub repository](https://hub.docker.com/r/docker/buildx-pkg). 
 
@@ -170,3 +172,8 @@ $ tree ./bin
 
 15 directories, 116 files
 ```
+
+## Contributing
+
+Want to contribute? Awesome! You can find information about contributing to
+this project in the [CONTRIBUTING.md](/.github/CONTRIBUTING.md)
