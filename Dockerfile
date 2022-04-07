@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG NFPM_VERSION="2.13.0"
+ARG NFPM_VERSION="2.15.1"
 ARG XX_VERSION="1.1.0"
 
 FROM --platform=$BUILDPLATFORM alpine AS base
