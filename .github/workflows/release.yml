@@ -12,8 +12,7 @@ on:
         type: boolean
 
 env:
-  #REPO_SLUG: "docker/buildx-pkg" # FIXME: uncomment when moved to docker org and don't forget to update secrets
-  REPO_SLUG: "crazymax/buildx-packaging"
+  REPO_SLUG: "dockereng/buildx-pkg"
 
 jobs:
   build:

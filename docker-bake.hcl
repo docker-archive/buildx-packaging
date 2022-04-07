@@ -62,7 +62,7 @@ variable "PKG_PACKAGER" {
 
 // Special target: https://github.com/docker/metadata-action#bake-definition
 target "meta-helper" {
-  tags = ["docker/buildx-pkg:local"]
+  tags = ["dockereng/buildx-pkg:local"]
 }
 
 group "default" {
@@ -105,7 +105,7 @@ target "pkg" {
 }
 
 # Useful commands for this target
-# docker buildx bake pkg-cross --set *.output=type=image,push=true --set *.tags=crazymax/buildx-pkg:latest
+# docker buildx bake pkg-cross --set *.output=type=image,push=true --set *.tags=dockereng/buildx-pkg:latest
 target "pkg-cross" {
   inherits = ["pkg"]
   platforms = [

@@ -1,14 +1,14 @@
 # Buildx packaging
 
-[![GitHub release](https://img.shields.io/github/release/crazy-max/buildx-packaging.svg?style=flat-square)](https://github.com/crazy-max/buildx-packaging/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/crazy-max/buildx-packaging/build?label=build&logo=github)](https://github.com/crazy-max/buildx-packaging/actions?query=workflow%3Abuild)
-[![Release Status](https://img.shields.io/github/workflow/status/crazy-max/buildx-packaging/release?label=release&logo=github)](https://github.com/crazy-max/buildx-packaging/actions?query=workflow%3Arelease)
-[![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/buildx-packaging.svg?logo=docker)](https://hub.docker.com/r/crazymax/buildx-packaging/)
+[![GitHub release](https://img.shields.io/github/release/docker/buildx-packaging.svg?style=flat-square)](https://github.com/docker/buildx-packaging/releases/latest)
+[![Build Status](https://img.shields.io/github/workflow/status/docker/buildx-packaging/build?label=build&logo=github)](https://github.com/docker/buildx-packaging/actions?query=workflow%3Abuild)
+[![Release Status](https://img.shields.io/github/workflow/status/docker/buildx-packaging/release?label=release&logo=github)](https://github.com/docker/buildx-packaging/actions?query=workflow%3Arelease)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dockereng/buildx-pkg.svg?logo=docker)](https://hub.docker.com/r/dockereng/buildx-pkg/)
 
 ## About
 
 This repository creates packages (apk, deb, rpm, static) for [buildx](https://github.com/docker/buildx)
-that are pushed on [`docker/buildx-pkg` Docker Hub repository](https://hub.docker.com/r/docker/buildx-pkg). 
+that are pushed on [`dockereng/buildx-pkg` Docker Hub repository](https://hub.docker.com/r/dockereng/buildx-pkg). 
 
 ## Usage
 
@@ -25,19 +25,24 @@ $ PKG_TYPES=deb PKG_DEB_RELEASES=debian11 docker buildx bake pkg
 # create packages for windows/amd64 platform and output to ./bin folder
 $ docker buildx bake --set *.platform=windows/amd64 --set *.output=./bin pkg
 
-# create packages for all supported platforms and push to crazymax/buildx-packaging:v0.8.1
-$ docker buildx bake --set *.output=type=image,push=true --set *.tags=crazymax/buildx-packaging:v0.8.1 pkg-cross
+# create packages for all supported platforms and push to dockereng/buildx-pkg:v0.8.1
+$ docker buildx bake --set *.output=type=image,push=true --set *.tags=dockereng/buildx-pkg:v0.8.1 pkg-cross
 ```
 
 ## Extract packages
 
 You can use a tool like [Undock](https://github.com/crazy-max/undock) to extract
-all packages with:
+all packages:
 
 ```shell
-$ undock --wrap --rm-dist --all crazymax/buildx-packaging:v0.8.1 ./bin
-$ tree ./bin
-./dist/
+$ undock --wrap --rm-dist --all dockereng/buildx-pkg:v0.8.1 ./bin
+```
+
+<details>
+  <summary>tree ./bin</summary>
+
+```
+./bin
 ├── darwin
 │   ├── amd64
 │   │   └── docker-buildx-plugin_0.8.1.tgz
@@ -77,25 +82,25 @@ $ tree ./bin
 │   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu1804_armel.deb
 │   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu2004_armel.deb
 │   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu2110_armel.deb
-│   │   │   └── docker-buildx-plugin_0.8.1-ubuntu2204_armel.deb
-│   │   ├── v6docker-buildx-plugin_0.8.1.tgz
-│   │   ├── v7
-│   │   │   ├── docker-buildx-plugin-0.8.1-centos7.armv7hl.rpm
-│   │   │   ├── docker-buildx-plugin-0.8.1-centos8.armv7hl.rpm
-│   │   │   ├── docker-buildx-plugin-0.8.1-fedora33.armv7hl.rpm
-│   │   │   ├── docker-buildx-plugin-0.8.1-fedora34.armv7hl.rpm
-│   │   │   ├── docker-buildx-plugin-0.8.1-fedora35.armv7hl.rpm
-│   │   │   ├── docker-buildx-plugin-0.8.1-fedora36.armv7hl.rpm
-│   │   │   ├── docker-buildx-plugin_0.8.1-debian10_armhf.deb
-│   │   │   ├── docker-buildx-plugin_0.8.1-debian11_armhf.deb
-│   │   │   ├── docker-buildx-plugin_0.8.1-r0_armv7.apk
-│   │   │   ├── docker-buildx-plugin_0.8.1-raspbian10_armhf.deb
-│   │   │   ├── docker-buildx-plugin_0.8.1-raspbian11_armhf.deb
-│   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu1804_armhf.deb
-│   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu2004_armhf.deb
-│   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu2110_armhf.deb
-│   │   │   └── docker-buildx-plugin_0.8.1-ubuntu2204_armhf.deb
-│   │   └── v7docker-buildx-plugin_0.8.1.tgz
+│   │   │   ├── docker-buildx-plugin_0.8.1-ubuntu2204_armel.deb
+│   │   │   └── docker-buildx-plugin_0.8.1.tgz
+│   │   └── v7
+│   │       ├── docker-buildx-plugin-0.8.1-centos7.armv7hl.rpm
+│   │       ├── docker-buildx-plugin-0.8.1-centos8.armv7hl.rpm
+│   │       ├── docker-buildx-plugin-0.8.1-fedora33.armv7hl.rpm
+│   │       ├── docker-buildx-plugin-0.8.1-fedora34.armv7hl.rpm
+│   │       ├── docker-buildx-plugin-0.8.1-fedora35.armv7hl.rpm
+│   │       ├── docker-buildx-plugin-0.8.1-fedora36.armv7hl.rpm
+│   │       ├── docker-buildx-plugin_0.8.1-debian10_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-debian11_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-r0_armv7.apk
+│   │       ├── docker-buildx-plugin_0.8.1-raspbian10_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-raspbian11_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-ubuntu1804_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-ubuntu2004_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-ubuntu2110_armhf.deb
+│   │       ├── docker-buildx-plugin_0.8.1-ubuntu2204_armhf.deb
+│   │       └── docker-buildx-plugin_0.8.1.tgz
 │   ├── arm64
 │   │   ├── docker-buildx-plugin-0.8.1-centos7.aarch64.rpm
 │   │   ├── docker-buildx-plugin-0.8.1-centos8.aarch64.rpm
@@ -172,6 +177,7 @@ $ tree ./bin
 
 15 directories, 116 files
 ```
+</details>
 
 ## Contributing
 
