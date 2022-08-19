@@ -24,7 +24,7 @@ variable "BUILDX_REPO" {
 
 # Sets the buildx version to download the binary from GitHub Releases.
 variable "BUILDX_VERSION" {
-  default = "v0.9.0"
+  default = "v0.9.1"
 }
 
 # Sets the list of package types to build: apk, deb, rpm and/or static
