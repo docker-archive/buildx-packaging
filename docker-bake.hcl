@@ -41,7 +41,7 @@ variable "PKG_APK_RELEASES" {
 # Sets the list of deb releases (e.g., debian11)
 # docker-buildx-plugin_0.8.1-debian11_arm64.deb
 variable "PKG_DEB_RELEASES" {
-  default = "debian10,debian11,ubuntu1804,ubuntu2004,ubuntu2110,ubuntu2204,raspbian10,raspbian11"
+  default = "debian10,debian11,ubuntu1804,ubuntu2004,ubuntu2204,raspbian10,raspbian11"
 }
 
 # Sets the list of rpm releases (e.g., centos7)
