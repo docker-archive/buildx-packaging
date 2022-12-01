@@ -67,7 +67,7 @@ jobs:
             *.output=type=image,push=${{ github.event.inputs.dry-run != 'true' }}
       -
         name: Create Release
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
         if: github.event.inputs.dry-run != 'true'
         with:
           name: ${{ env.BUILDX_VERSION }}-${{ github.run_number }}
