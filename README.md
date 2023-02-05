@@ -1,9 +1,10 @@
-# Buildx packaging
+> **Warning**
+>
+> This project and repository is now deprecated and is no longer under active
+> development. Please use [docker/packaging](https://github.com/docker/packaging)
+> instead.
 
-[![GitHub release](https://img.shields.io/github/release/docker/buildx-packaging.svg?style=flat-square)](https://github.com/docker/buildx-packaging/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/docker/buildx-packaging/build?label=build&logo=github)](https://github.com/docker/buildx-packaging/actions?query=workflow%3Abuild)
-[![Release Status](https://img.shields.io/github/workflow/status/docker/buildx-packaging/release?label=release&logo=github)](https://github.com/docker/buildx-packaging/actions?query=workflow%3Arelease)
-[![Docker Pulls](https://img.shields.io/docker/pulls/dockereng/buildx-pkg.svg?logo=docker)](https://hub.docker.com/r/dockereng/buildx-pkg/)
+# Buildx packaging
 
 ## About
 
